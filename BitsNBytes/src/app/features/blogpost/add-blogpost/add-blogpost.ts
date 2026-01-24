@@ -8,7 +8,7 @@ import { CategoryService } from '../../category/services/category-service';
 
 @Component({
   selector: 'app-add-blogpost',
-  imports: [ReactiveFormsModule,MarkdownComponent],
+  imports: [ReactiveFormsModule, MarkdownComponent],
   templateUrl: './add-blogpost.html',
   styleUrl: './add-blogpost.css',
 })
@@ -24,47 +24,47 @@ export class AddBlogpost {
 
 
   addBlogpostForm = new FormGroup({
-    title: new FormControl<string>('',{
+    title: new FormControl<string>('', {
       nonNullable: true,
-      validators: [Validators.required,Validators.minLength(10), Validators.maxLength(100)],
+      validators: [Validators.required, Validators.minLength(10), Validators.maxLength(100)],
     }),
-    shortDescription: new FormControl<string>('',{
+    shortDescription: new FormControl<string>('', {
       nonNullable: true,
-      validators: [Validators.required,Validators.minLength(10), Validators.maxLength(300)],
+      validators: [Validators.required, Validators.minLength(10), Validators.maxLength(300)],
     }),
-    content: new FormControl<string>('',{
+    content: new FormControl<string>('', {
       nonNullable: true,
-      validators: [Validators.required,Validators.minLength(10)],
+      validators: [Validators.required, Validators.minLength(10)],
     }),
-    featuredImageUrl: new FormControl<string>('',{
+    featuredImageUrl: new FormControl<string>('', {
       nonNullable: true,
-      validators: [Validators.required,Validators.minLength(1), Validators.maxLength(200)],
+      validators: [Validators.required, Validators.maxLength(200)],
     }),
-    urlHandle: new FormControl<string>('',{
+    urlHandle: new FormControl<string>('', {
       nonNullable: true,
-      validators: [Validators.required,Validators.minLength(1), Validators.maxLength(200)],
+      validators: [Validators.required, Validators.minLength(1), Validators.maxLength(200)],
     }),
-    publishedDate: new FormControl<string>(new Date().toISOString().split('T')[0],{
+    publishedDate: new FormControl<string>(new Date().toISOString().split('T')[0], {
       nonNullable: true,
       validators: [Validators.required],
     }),
-    author: new FormControl<string>('',{
+    author: new FormControl<string>('', {
       nonNullable: true,
-      validators: [Validators.required,Validators.minLength(1), Validators.maxLength(200)],
+      validators: [Validators.required, Validators.minLength(1), Validators.maxLength(200)],
     }),
-    isVisible: new FormControl<boolean>(false,{
-      
+    isVisible: new FormControl<boolean>(false, {
+
       nonNullable: true,
-      
+
     }),
     categories: new FormControl<string[]>([]),
   });
 
-  onSubmit(){
+  onSubmit() {
     const formRawValue = this.addBlogpostForm.getRawValue();
     console.log('Form Submitted:', formRawValue);
 
-    const requestDto : AddBlogPostRequest  = {
+    const requestDto: AddBlogPostRequest = {
       title: formRawValue.title,
       shortDescription: formRawValue.shortDescription,
       content: formRawValue.content,
