@@ -33,9 +33,10 @@ export class EditBlogpost {
       validators: [Validators.required,Validators.minLength(10), Validators.maxLength(100)],
     }),
     shortDescription: new FormControl<string>('',{
-      nonNullable: true,
-      validators: [Validators.required,Validators.minLength(10), Validators.maxLength(300)],
-    }),
+  nonNullable: true,
+      validators: [Validators.required,Validators.minLength(10), Validators.maxLength(500)],
+}),
+
     content: new FormControl<string>('',{
       nonNullable: true,
       validators: [Validators.required,Validators.minLength(10)],
@@ -43,7 +44,8 @@ export class EditBlogpost {
     featuredImageUrl: new FormControl<string>('',{
       nonNullable: true,
       validators: [Validators.required,Validators.minLength(1), Validators.maxLength(200)],
-    }),
+}),
+
     urlHandle: new FormControl<string>('',{
       nonNullable: true,
       validators: [Validators.required,Validators.minLength(1), Validators.maxLength(200)],
@@ -80,31 +82,45 @@ export class EditBlogpost {
     }
 
 });
+selectedImageEffectRef = effect(()=>{
+  const selectedImage = this.imageSelectorService.selectedImage();
+  if(selectedImage){
+    this.editBlogpostForm.patchValue({
+      featuredImageUrl: selectedImage,
+    });
+  }
+});
 
-  onSubmit(){
+ onSubmit(){
+    console.log('🔵 onSubmit called');
+    console.log('🔵 Form valid?', this.editBlogpostForm.valid);
+    console.log('🔵 Form value:', this.editBlogpostForm.getRawValue());
+    
     const id = this.id();
+    console.log('🔵 ID:', id);
+    
     if(id && this.editBlogpostForm.valid){
-    const formValue = this.editBlogpostForm.getRawValue();
+        const formValue = this.editBlogpostForm.getRawValue();
     const UpdateBlogPostRequestDto:UpdateBlogPostRequest={
-        title: formValue.title,
-        shortDescription: formValue.shortDescription,
-        featuredImageUrl: formValue.featuredImageUrl,
-        content: formValue.content,
-        urlHandle: formValue.urlHandle,
+            title: formValue.title,
+            shortDescription: formValue.shortDescription,
+            featuredImageUrl: formValue.featuredImageUrl,
+            content: formValue.content,
+            urlHandle: formValue.urlHandle,
         publishedDate: new Date(formValue.publishedDate),
         categories: formValue.categories??[],
-        isVisible: formValue.isVisible,
-        author: formValue.author,
-  };
+            isVisible: formValue.isVisible,
+            author: formValue.author,
+        };
     this.blogPostService.editBlogPost(id,UpdateBlogPostRequestDto).subscribe({
         next:(response)=>{
-          this.router.navigate(['/blogposts']);
+          this.router.navigate(['/admin/blogposts']);
             console.log('Blog post updated successfully',response);
         },
         error:(error)=>{
             console.error('Error updating blog post',error);
-        }
-    }); 
+            }
+        });
     }
 
 }
@@ -122,7 +138,7 @@ export class EditBlogpost {
           }
       })
     }
-   }
+}
 
    openImageSelector(){
     this.imageSelectorService.displayImageSelector(); 

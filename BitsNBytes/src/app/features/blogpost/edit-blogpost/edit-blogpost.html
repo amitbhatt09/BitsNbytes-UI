@@ -17,30 +17,30 @@
 
             <div class="d-flex flex-row">
                 <div class="col-6 p-2">
-                     <label for="content" class="form-label">Content</label>
-                     <textarea class="form-control" formControlName="content" rows="5"></textarea>
+                    <label for="content" class="form-label">Content</label>
+                    <textarea class="form-control" formControlName="content" rows="5"></textarea>
                 </div>
                 <div class="col-6 p-2" style="max-height: 350px; overflow-y: scroll;">
                     <markdown [data]="editBlogpostForm.controls.content.getRawValue()"></markdown>
                 </div>
             </div>
-            
+
         </div>
         <div class="mb-3">
             <label for="content" class="form-label">Feature Image URL
-                
-                    <button class="btn btn-light" type="button" (click)="openImageSelector()">Select Images</button>
-                
+
+                <button class="btn btn-light" type="button" (click)="openImageSelector()">Select Images</button>
+
             </label>
             @if(editBlogpostForm.controls.featuredImageUrl.getRawValue()){
-                <div class="mb-2">
+            <div class="mb-2">
                     <img 
                     style="height: 100px;"  
                     [src]="editBlogpostForm.controls.featuredImageUrl.getRawValue()" alt="Feature Image"
                      class="my-2"/>
-                </div>
-            }   
-            
+            </div>
+            }
+
             <input class="form-control" type="text" formControlName="featuredImageUrl">
         </div>
         <div class="mb-3">
@@ -52,18 +52,18 @@
             <input class="form-control" type="text" formControlName="publishedDate">
         </div>
         <div class="mb-3">
-        <div class="form-check">
+            <div class="form-check">
             <input class="form-check-input" type="checkbox"  id="isVisible" formControlName="isVisible">
-            <label class="form-check-label" for="isVisible">
-                Is Visible?
-            </label>
+                <label class="form-check-label" for="isVisible">
+                    Is Visible?
+                </label>
             </div>
         </div>
         <div class="mb-3">
             <label class="form-label">Categories</label>
             <select class="form-control" multiple formControlName="categories">
                 @for(category of categoriesResponse(); track category.id){
-                    <option [value]="category.id">{{category.name}}</option>
+                <option [value]="category.id">{{category.name}}</option>
                 }
             </select>
         </div>
@@ -71,11 +71,11 @@
             <button type="submit" class="btn btn-primary">Save</button>
             <button type="button" class="btn btn-danger" (click)="onDelete()">Delete</button>
         </div>
-    
+
     </form>
 </div>
 
-    
-    <app-image-selector></app-image-selector>
+
+
 
 

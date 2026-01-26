@@ -1,10 +1,11 @@
-import { Component, inject } from '@angular/core';
+import { Component, effect, inject } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { BlogPostService } from '../services/blog-post-service';
 import { Router } from '@angular/router';
 import { AddBlogPostRequest } from '../models/blogpost.model';
 import { MarkdownComponent } from 'ngx-markdown';
 import { CategoryService } from '../../category/services/category-service';
+import { ImageSelectorService } from '../../../shared/services/image-selector-service';
 
 @Component({
   selector: 'app-add-blogpost',
@@ -18,6 +19,16 @@ export class AddBlogpost {
   blogPostService = inject(BlogPostService);
   categoryService = inject(CategoryService);
   router = inject(Router);
+  imageSelectorService = inject(ImageSelectorService);
+
+  selectedImageEffectRef = effect(()=>{
+  const selectedImage = this.imageSelectorService.selectedImage();
+  if(selectedImage){
+    this.addBlogpostForm.patchValue({
+      featuredImageUrl: selectedImage,
+    });
+  }
+});
 
   private categoriesResourceRef = this.categoryService.getAllCategories();
   categoriesResponse = this.categoriesResourceRef.value;
