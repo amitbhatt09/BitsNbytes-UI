@@ -1,0 +1,198 @@
+/* ─── NAVBAR ─── */
+:host {
+  display: block;
+}
+
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(22, 32, 48, .80);
+  backdrop-filter: blur(18px) saturate(1.4);
+  -webkit-backdrop-filter: blur(18px) saturate(1.4);
+  border-bottom: 1px solid var(--clr-border);
+  padding: 0 2rem;
+  height: 76px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* ─── Brand ─── */
+.navbar__brand {
+  font-family: 'Playfair Display', serif;
+  font-weight: 800;
+  font-size: 1.55rem;
+  letter-spacing: -.5px;
+  text-decoration: none;
+  background: linear-gradient(135deg, var(--clr-primary), var(--clr-accent));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  transition: filter var(--transition);
+  flex-shrink: 0;
+}
+.navbar__brand:hover {
+  filter: brightness(1.25);
+}
+
+/* ─── Center links (admin dropdown only) ─── */
+.navbar__links {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  flex: 1;
+  justify-content: center;
+}
+
+.navbar__links a {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--clr-text-muted);
+  text-decoration: none;
+  font-size: .88rem;
+  font-weight: 500;
+  padding: 7px 14px;
+  border-radius: var(--radius-sm);
+  transition: color var(--transition), background var(--transition);
+  position: relative;
+  text-transform: none;
+  letter-spacing: normal;
+  border: none;
+  box-shadow: none;
+  background: transparent;
+}
+.navbar__links a:hover {
+  color: var(--clr-text-bright);
+  background: var(--clr-surface-alt);
+}
+
+/* ─── Dropdown ─── */
+.dropdown {
+  position: relative;
+}
+.dropdown__trigger {
+  user-select: none;
+}
+.dropdown__menu {
+  position: absolute;
+  top: calc(100% + 10px);
+  left: 50%;
+  transform: translateX(-50%) translateY(-8px);
+  min-width: 180px;
+  background: var(--clr-surface);
+  border: 1px solid var(--clr-border);
+  border-radius: var(--radius);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, .4);
+  padding: 6px;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity var(--transition), transform var(--transition), visibility var(--transition);
+}
+.dropdown:hover .dropdown__menu {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(0);
+}
+.dropdown__menu a {
+  display: block;
+  padding: 9px 14px;
+  border-radius: var(--radius-sm);
+  font-size: .84rem;
+  background: transparent;
+}
+.dropdown__menu a:hover {
+  background: var(--clr-surface-alt);
+  color: var(--clr-text-bright);
+}
+
+/* ─── Right-side actions ─── */
+.navbar__actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+}
+
+/* Home link (shows only when off the home page) */
+.navbar__home-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  color: var(--clr-text-muted);
+  font-size: .84rem;
+  font-weight: 500;
+  padding: 6px 10px;
+  border-radius: var(--radius-sm);
+  text-decoration: none;
+  transition: color var(--transition), background var(--transition);
+}
+.navbar__home-link:hover {
+  color: var(--clr-text-bright);
+  background: var(--clr-surface-alt);
+}
+
+.navbar__email {
+  font-size: .82rem;
+  color: var(--clr-text-muted);
+  letter-spacing: .3px;
+}
+
+/* ─── Navbar Buttons ─── */
+.btn {
+  font-family: inherit;
+  font-size: .78rem;
+  font-weight: 600;
+  letter-spacing: .4px;
+  text-transform: uppercase;
+  padding: 8px 20px;
+  border-radius: 999px;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--transition);
+}
+
+/* Login – gradient fill */
+.btn--login {
+  background: linear-gradient(135deg, var(--clr-primary), var(--clr-accent));
+  color: #fff;
+  box-shadow: 0 4px 18px rgba(79, 159, 245, .35);
+}
+.btn--login:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 24px rgba(79, 159, 245, .5);
+  filter: brightness(1.1);
+  color: #fff;
+}
+
+/* Logout – ghost outline */
+.btn--logout {
+  background: transparent;
+  color: var(--clr-text-muted);
+  border: 1px solid var(--clr-border);
+}
+.btn--logout:hover {
+  border-color: var(--clr-danger);
+  color: var(--clr-danger-hover);
+  background: rgba(239, 68, 68, .08);
+}
+
+/* Sign Up – ghost outline */
+.btn--signup {
+  background: transparent;
+  color: var(--clr-text);
+  border: 1px solid var(--clr-border);
+}
+.btn--signup:hover {
+  border-color: var(--clr-primary);
+  color: var(--clr-primary-hover);
+  background: rgba(79, 159, 245, .08);
+}

@@ -1,5 +1,5 @@
 /* ─── Centering wrapper ─── */
-.login-wrap {
+.signup-wrap {
   display: flex;
   justify-content: center;
   align-items: flex-start;
@@ -7,21 +7,21 @@
 }
 
 /* ─── Card shell ─── */
-.login-card {
+.signup-card {
   width: 100%;
-  max-width: 400px;
+  max-width: 420px;
   background: var(--clr-surface);
   border: 1px solid var(--clr-border);
   border-radius: var(--radius);
-  padding: 44px 36px 36px;
+  padding: 44px 36px 32px;
 }
 
-/* ─── Brand / logo inside card ─── */
-.login-card__brand {
+/* ─── Brand / logo ─── */
+.signup-card__brand {
   text-align: center;
   margin-bottom: 28px;
 }
-.login-card__logo {
+.signup-card__logo {
   font-family: 'Playfair Display', serif;
   font-weight: 800;
   font-size: 1.5rem;
@@ -32,42 +32,54 @@
 }
 
 /* ─── Title & sub ─── */
-.login-card__title {
+.signup-card__title {
   font-size: 1.35rem;
   font-weight: 700;
   color: var(--clr-text-bright);
   text-align: center;
   margin-bottom: 4px;
 }
-.login-card__sub {
+.signup-card__sub {
   font-size: .82rem;
   color: var(--clr-text-muted);
   text-align: center;
   margin-bottom: 28px;
 }
 
+/* ─── API error banner ─── */
+.signup-card__api-error {
+  background: rgba(239, 68, 68, .1);
+  border: 1px solid rgba(239, 68, 68, .25);
+  color: var(--clr-danger-hover);
+  font-size: .8rem;
+  padding: 10px 14px;
+  border-radius: var(--radius-sm);
+  margin-bottom: 4px;
+  text-align: center;
+}
+
 /* ─── Submit button (full width) ─── */
-.login-card__submit {
+.signup-card__submit {
   margin-top: 8px;
 }
-.login-card__submit .btn {
+.signup-card__submit .btn {
   width: 100%;
 }
 
 /* ─── Footer cross-link ─── */
-.login-card__footer {
+.signup-card__footer {
   text-align: center;
   font-size: .78rem;
   color: var(--clr-text-muted);
   margin-top: 24px;
   margin-bottom: 0;
 }
-.login-card__footer a {
+.signup-card__footer a {
   color: var(--clr-primary);
   font-weight: 600;
   text-decoration: none;
   transition: color var(--transition);
 }
-.login-card__footer a:hover {
+.signup-card__footer a:hover {
   color: var(--clr-primary-hover);
 }

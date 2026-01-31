@@ -1,7 +1,38 @@
 <div class="container">
-    <div class="mt-5">
-        <div class="col-12 col-md-6 col-lg-4">
-            
+  <div class="login-wrap">
+    <div class="login-card">
+      <div class="login-card__brand">
+        <span class="login-card__logo">Bits&Bytes</span>
+      </div>
+      <h1 class="login-card__title">Welcome back</h1>
+      <p class="login-card__sub">Sign in to your account</p>
+
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <div class="mb-3">
+          <label for="email" class="form-label">Email address</label>
+          <input type="email" id="email" class="form-control" formControlName="email" placeholder="you@example.com" />
+          @if(emailFormControl.touched && emailFormControl.hasError('required')) {
+            <p class="text-danger">Email is required.</p>
+          }
         </div>
+        <div class="mb-3">
+          <label for="password" class="form-label">Password</label>
+          <input type="password" id="password" class="form-control" formControlName="password" placeholder="••••••••" />
+          @if(passwordFormControl.touched && passwordFormControl.hasError('required')) {
+            <p class="text-danger">Password is required.</p>
+          }
+        </div>
+        <div class="login-card__submit">
+          <button type="submit" class="btn btn-primary" [disabled]="loginForm.invalid">Login</button>
+        </div>
+      </form>
+
+      <!-- cross-link to signup -->
+      <p class="login-card__footer">
+        Don't have an account?
+        <a routerLink="/signup">Sign up</a>
+      </p>
+
     </div>
+  </div>
 </div>

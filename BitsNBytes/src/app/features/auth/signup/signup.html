@@ -1,0 +1,90 @@
+<div class="container">
+  <div class="signup-wrap">
+    <div class="signup-card">
+
+      <!-- brand logo (identical to login) -->
+      <div class="signup-card__brand">
+        <span class="signup-card__logo">Bits&Bytes</span>
+      </div>
+
+      <h1 class="signup-card__title">Create your account</h1>
+      <p class="signup-card__sub">Join the community and start reading</p>
+
+      <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
+
+        <!-- Email -->
+        <div class="mb-3">
+          <label for="su-email" class="form-label">Email address</label>
+          <input
+            type="email"
+            id="su-email"
+            class="form-control"
+            formControlName="email"
+            placeholder="you@example.com"
+          />
+          @if(emailControl.touched && emailControl.hasError('required')) {
+            <p class="text-danger">Email is required.</p>
+          }
+          @if(emailControl.touched && emailControl.hasError('email')) {
+            <p class="text-danger">Please enter a valid email.</p>
+          }
+        </div>
+
+        <!-- Password -->
+        <div class="mb-3">
+          <label for="su-password" class="form-label">Password</label>
+          <input
+            type="password"
+            id="su-password"
+            class="form-control"
+            formControlName="password"
+            placeholder="••••••••"
+          />
+          @if(passwordControl.touched && passwordControl.hasError('required')) {
+            <p class="text-danger">Password is required.</p>
+          }
+          @if(passwordControl.touched && passwordControl.hasError('minlength')) {
+            <p class="text-danger">Password must be at least 6 characters.</p>
+          }
+        </div>
+
+        <!-- Confirm Password -->
+        <div class="mb-3">
+          <label for="su-confirm" class="form-label">Confirm password</label>
+          <input
+            type="password"
+            id="su-confirm"
+            class="form-control"
+            formControlName="confirmPassword"
+            placeholder="••••••••"
+          />
+          @if(confirmPasswordControl.touched && confirmPasswordControl.hasError('required')) {
+            <p class="text-danger">Please confirm your password.</p>
+          }
+          @if(passwordsMismatch) {
+            <p class="text-danger">Passwords do not match.</p>
+          }
+        </div>
+
+        <!-- API-level error (e.g. "email already exists") -->
+        @if(apiError()) {
+          <p class="signup-card__api-error">{{ apiError() }}</p>
+        }
+
+        <!-- Submit -->
+        <div class="signup-card__submit">
+          <button type="submit" class="btn btn-primary" [disabled]="signupForm.invalid">
+            Create Account
+          </button>
+        </div>
+      </form>
+
+      <!-- cross-link to login -->
+      <p class="signup-card__footer">
+        Already have an account?
+        <a routerLink="/login">Log in</a>
+      </p>
+
+    </div>
+  </div>
+</div>

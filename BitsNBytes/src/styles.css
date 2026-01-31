@@ -1,11 +1,376 @@
-/* You can add global styles to this file, and also import other style files */
-.image-selector-container{
-    width: 100%;
-    height: 100vh;
-    position: fixed;
-    left: 0;
-    top: 0;
-    z-index: 10;
-    padding: 50px;
-    background-color: rgba(0,0,0,0.5);
+/* ─── Google Fonts ─── */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+
+/* ─── Design Tokens ─── */
+:root {
+  --clr-bg:            #0f1520;
+  --clr-surface:       #162030;
+  --clr-surface-alt:   #1e2d42;
+  --clr-border:        rgba(255,255,255,.09);
+
+  --clr-primary:       #4f9ff5;
+  --clr-primary-hover: #7bb8f8;
+  --clr-accent:        #38c9d8;
+  --clr-accent-warm:   #f59e0b;
+
+  --clr-text:          #cbd8e8;
+  --clr-text-muted:    #7a8fa6;
+  --clr-text-bright:   #eef2f7;
+
+  --clr-danger:        #ef4444;
+  --clr-danger-hover:  #f87171;
+
+  --radius:            12px;
+  --radius-sm:         8px;
+  --transition:        .28s cubic-bezier(.4,0,.2,1);
+}
+
+/* ─── Reset & Base ─── */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Space Grotesk', sans-serif;
+  background-color: var(--clr-bg);
+  color: var(--clr-text);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4, h5 {
+  color: var(--clr-text-bright);
+  font-family: 'Playfair Display', serif;
+}
+
+a {
+  color: var(--clr-primary);
+  text-decoration: none;
+  transition: color var(--transition);
+}
+a:hover { color: var(--clr-primary-hover); }
+
+/* ─── Bootstrap Container override ─── */
+.container {
+  max-width: 1100px;
+}
+
+/* ─── Bootstrap Form Controls ─── */
+.form-label {
+  color: var(--clr-text);
+  font-size: .85rem;
+  font-weight: 500;
+  margin-bottom: 6px;
+}
+
+.form-control {
+  background-color: var(--clr-surface-alt);
+  border: 1px solid var(--clr-border);
+  color: var(--clr-text-bright);
+  border-radius: var(--radius-sm);
+  padding: 9px 14px;
+  font-family: inherit;
+  font-size: .85rem;
+  transition: border-color var(--transition), box-shadow var(--transition);
+}
+.form-control::placeholder {
+  color: var(--clr-text-muted);
+}
+.form-control:focus {
+  background-color: var(--clr-surface-alt);
+  border-color: var(--clr-primary);
+  color: var(--clr-text-bright);
+  box-shadow: 0 0 0 3px rgba(79,159,245,.2);
+  outline: none;
+}
+.form-control:disabled {
+  background-color: var(--clr-surface);
+  color: var(--clr-text-muted);
+  border-color: var(--clr-border);
+  cursor: not-allowed;
+}
+
+/* select & textarea */
+select.form-control {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath d='M3 4.5L6 7.5L9 4.5' stroke='%237a8fa6' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  padding-right: 36px;
+}
+select.form-control option {
+  background: var(--clr-surface-alt);
+  color: var(--clr-text-bright);
+}
+textarea.form-control {
+  resize: vertical;
+  min-height: 120px;
+}
+
+/* checkbox */
+.form-check-input {
+  background-color: var(--clr-surface-alt);
+  border-color: var(--clr-border);
+  width: 18px;
+  height: 18px;
+}
+.form-check-input:checked {
+  background-color: var(--clr-primary);
+  border-color: var(--clr-primary);
+}
+.form-check-input:focus {
+  box-shadow: 0 0 0 3px rgba(79,159,245,.2);
+}
+.form-check-label {
+  color: var(--clr-text);
+  font-size: .85rem;
+  margin-left: 6px;
+}
+
+/* file input */
+input[type="file"].form-control {
+  color: var(--clr-text-muted);
+  font-size: .8rem;
+}
+
+/* ─── Bootstrap Buttons ─── */
+.btn {
+  font-family: inherit;
+  font-size: .78rem;
+  font-weight: 600;
+  letter-spacing: .4px;
+  text-transform: uppercase;
+  border-radius: 999px;
+  padding: 9px 22px;
+  transition: all var(--transition);
+  cursor: pointer;
+  border: none;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--clr-primary), var(--clr-accent));
+  color: #fff;
+  box-shadow: 0 3px 14px rgba(79,159,245,.3);
+}
+.btn-primary:hover, .btn-primary:focus {
+  filter: brightness(1.1);
+  transform: translateY(-1px);
+  box-shadow: 0 5px 20px rgba(79,159,245,.45);
+  color: #fff;
+}
+.btn-primary:disabled {
+  opacity: .45;
+  filter: none;
+  transform: none;
+  box-shadow: none;
+  cursor: not-allowed;
+}
+
+.btn-light {
+  background: var(--clr-surface-alt);
+  color: var(--clr-text);
+  border: 1px solid var(--clr-border);
+}
+.btn-light:hover, .btn-light:focus {
+  background: var(--clr-border);
+  color: var(--clr-text-bright);
+}
+
+.btn-dark {
+  background: var(--clr-surface-alt);
+  color: var(--clr-text-bright);
+  border: 1px solid var(--clr-border);
+}
+.btn-dark:hover {
+  background: var(--clr-primary);
+  border-color: var(--clr-primary);
+  color: #fff;
+}
+
+.btn-danger {
+  background: transparent;
+  color: var(--clr-danger);
+  border: 1px solid var(--clr-danger);
+}
+.btn-danger:hover, .btn-danger:focus {
+  background: rgba(239,68,68,.12);
+  color: var(--clr-danger-hover);
+  border-color: var(--clr-danger-hover);
+}
+
+/* ─── Bootstrap Table ─── */
+.table {
+  color: var(--clr-text);
+  border-color: var(--clr-border);
+  font-size: .85rem;
+  border-radius: var(--radius);
+  overflow: hidden;
+  border-collapse: separate;
+  border-spacing: 0;
+}
+.table-bordered {
+  border: 1px solid var(--clr-border);
+}
+.table-bordered > thead,
+.table-bordered > tbody {
+  border-color: var(--clr-border);
+}
+.table-bordered > thead > tr > th,
+.table-bordered > tbody > tr > td {
+  border-color: var(--clr-border);
+}
+.table > thead {
+  background: var(--clr-surface-alt);
+}
+.table > thead > tr > th {
+  color: var(--clr-accent);
+  font-weight: 600;
+  font-size: .75rem;
+  text-transform: uppercase;
+  letter-spacing: .7px;
+  padding: 12px 16px;
+}
+.table > tbody > tr {
+  background: var(--clr-surface);
+  transition: background var(--transition);
+}
+.table > tbody > tr:hover {
+  background: var(--clr-surface-alt);
+}
+.table > tbody > tr > td {
+  padding: 12px 16px;
+  vertical-align: middle;
+  color: var(--clr-text);
+}
+
+/* ─── Bootstrap Badge ─── */
+.badge {
+  font-size: .7rem;
+  font-weight: 600;
+  letter-spacing: .5px;
+  border-radius: 999px;
+  padding: 4px 10px;
+}
+.text-bg-secondary, .bg-secondary {
+  background-color: rgba(56,201,216,.12) !important;
+  color: var(--clr-accent) !important;
+}
+
+/* ─── Bootstrap Card (used inside image selector) ─── */
+.card {
+  background: var(--clr-surface);
+  border: 1px solid var(--clr-border);
+  border-radius: var(--radius);
+  color: var(--clr-text);
+}
+.card-header {
+  background: var(--clr-surface-alt);
+  border-bottom: 1px solid var(--clr-border);
+  padding: 14px 20px;
+}
+.card-header .card-title {
+  font-size: 1.1rem;
+  margin-bottom: 0;
+  color: var(--clr-text-bright);
+}
+.card-body {
+  padding: 20px;
+}
+
+/* ─── Spinner ─── */
+.spinner-border {
+  color: var(--clr-primary);
+  width: 2rem;
+  height: 2rem;
+  border-width: 3px;
+}
+
+/* ─── Validation text ─── */
+.text-danger {
+  color: var(--clr-danger) !important;
+  font-size: .75rem;
+  margin-top: 4px;
+}
+
+/* ─── Image Selector Overlay ─── */
+.image-selector-container {
+  width: 100%;
+  height: 100vh;
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 10;
+  padding: 50px;
+  background-color: rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(4px);
+}
+
+/* ─── Markdown (blog details) ─── */
+.blog-content {
+  line-height: 1.8;
+  font-size: .92rem;
+  color: var(--clr-text);
+}
+.blog-content h1, .blog-content h2, .blog-content h3 {
+  margin-top: 1.4em;
+  margin-bottom: .5em;
+}
+.blog-content p {
+  margin-bottom: .9em;
+}
+.blog-content code {
+  background: var(--clr-surface-alt);
+  color: var(--clr-accent);
+  padding: 2px 7px;
+  border-radius: 4px;
+  font-size: .82em;
+}
+.blog-content pre {
+  background: var(--clr-surface-alt);
+  border: 1px solid var(--clr-border);
+  border-radius: var(--radius-sm);
+  padding: 16px;
+  overflow-x: auto;
+}
+.blog-content pre code {
+  background: none;
+  padding: 0;
+  color: var(--clr-text);
+}
+.blog-content a {
+  color: var(--clr-primary);
+  border-bottom: 1px solid rgba(79,159,245,.35);
+}
+.blog-content img {
+  border-radius: var(--radius-sm);
+  max-width: 100%;
+}
+
+/* ─── bg-light override (image-selector upload panel) ─── */
+.bg-light {
+  background-color: var(--clr-surface-alt) !important;
+  border-left: 1px solid var(--clr-border);
+}
+
+/* ─── img-thumbnail (image selector grid) ─── */
+.img-thumbnail {
+  background-color: var(--clr-surface-alt);
+  border-color: var(--clr-border);
+  border-radius: var(--radius-sm);
+  transition: border-color var(--transition), box-shadow var(--transition);
+}
+.img-thumbnail:hover {
+  border-color: var(--clr-primary);
+  box-shadow: 0 0 0 2px rgba(79,159,245,.3);
+}
+
+/* ─── img-fluid (blog detail hero) ─── */
+.img-fluid {
+  border-radius: var(--radius);
+  max-width: 100%;
+  height: auto;
 }

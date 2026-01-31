@@ -1,33 +1,117 @@
 <div class="container">
-    <div class="my-5">
-        @if(isLoading()){
+  <div class="blog-detail">
+    @if(isLoading()){
+      <div class="blog-detail__spinner">
         <div class="spinner-border" role="status">
-            <span class="visually-hidden">Loading...</span>
+          <span class="visually-hidden">Loading...</span>
         </div>
-        }
-        @else {
-        <div class="row">
-            <div class="col-12 col-md-8 col-lg-6 mx-auto">
-                
-                <img [src]="blogDetailsResponse()?.featuredImageUrl" [title]="blogDetailsResponse()?.title" class="img-fluid my-3"/>
-                <h1>{{blogDetailsResponse()?.title}}</h1>
-                <div class="d-flex justify-content-between mt-4">
-                    <span>{{blogDetailsResponse()?.author}}</span>
-                    <span>{{blogDetailsResponse()?.publishedDate | date: 'dd-MM-yyyy'}}</span>
-                </div>
-                  @if(blogDetailsResponse()?.categories){
-                <div class="mt-4">
-                    @for(category of blogDetailsResponse()?.categories; track category){
-                        <span class="badge bg-secondary me-2">{{category.name}}</span>
-                    }
-                </div>
-            }
+      </div>
+    } @else {
+      <article class="blog-detail__article">
+        <img [src]="blogDetailsResponse()?.featuredImageUrl"
+             [title]="blogDetailsResponse()?.title"
+             class="blog-detail__hero-img" />
 
-            <div class="mt-4 blog-content">
-                <markdown [data]="blogDetailsResponse()?.content"></markdown>
-            </div>
-            </div>
-          
+        <h1 class="blog-detail__title">{{ blogDetailsResponse()?.title }}</h1>
+
+        <div class="blog-detail__meta">
+          <span class="blog-detail__author">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+              <circle cx="7" cy="4" r="3" stroke="currentColor" stroke-width="1.3"/>
+              <path d="M1 13c0-3.3 2.7-6 6-6s6 2.7 6 6" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
+            </svg>
+            {{ blogDetailsResponse()?.author }}
+          </span>
+          <span class="blog-detail__date">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+              <rect x="1" y="2" width="12" height="11" rx="2" stroke="currentColor" stroke-width="1.3"/>
+              <path d="M1 6h12" stroke="currentColor" stroke-width="1.3"/>
+              <path d="M4 1v2M10 1v2" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
+            </svg>
+            {{ blogDetailsResponse()?.publishedDate | date: 'dd-MM-yyyy' }}
+          </span>
         </div>
+
+        @if(blogDetailsResponse()?.categories){
+          <div class="blog-detail__tags">
+            @for(category of blogDetailsResponse()?.categories; track category){
+              <span class="badge bg-secondary">{{ category.name }}</span>
+            }
+          </div>
         }
-    </div>
+
+        <div class="blog-content">
+          <markdown [data]="blogDetailsResponse()?.content"></markdown>
+        </div>
+
+        <!-- ═══════════════ COMMENT SECTION ═══════════════ -->
+        <section class="comments">
+          <h2 class="comments__heading">
+            Comments
+            <span class="comments__count">{{ comments().length }}</span>
+          </h2>
+
+          <!-- INPUT AREA: different UI for logged-in vs guest -->
+          @if(authService.user()) {
+            <!-- Authenticated user sees the form -->
+            <form class="comments__form" [formGroup]="commentForm" (ngSubmit)="onSubmitComment()">
+              <textarea
+                class="form-control comments__textarea"
+                formControlName="content"
+                placeholder="Write your comment…"
+                rows="3"
+              ></textarea>
+              @if(contentControl.touched && contentControl.hasError('required')) {
+                <p class="text-danger">Comment cannot be empty.</p>
+              }
+              <div class="comments__form-actions">
+                <button type="submit" class="btn btn-primary comments__submit-btn" [disabled]="commentForm.invalid">
+                  Post Comment
+                </button>
+              </div>
+            </form>
+          } @else {
+            <!-- Guest sees a soft prompt with Sign Up / Log in links -->
+            <div class="comments__guest-prompt">
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" class="comments__guest-icon">
+                <path d="M10 2a8 8 0 100 16A8 8 0 0010 2zm0 4a2.5 2.5 0 110 5 2.5 2.5 0 010-5zm0 12c-2.5 0-4.7-1.3-6-3.2.02-2 4-3.1 6-3.1s5.98 1.1 6 3.1c-1.3 1.9-3.5 3.2-6 3.2z" fill="currentColor"/>
+              </svg>
+              <p class="comments__guest-text">
+                <a routerLink="/signup">Sign up</a> or <a routerLink="/login">log in</a> to leave a comment.
+              </p>
+            </div>
+          }
+
+          <!-- COMMENT LIST -->
+          @if(commentLoading()) {
+            <div class="comments__spinner">
+              <div class="spinner-border" role="status">
+                <span class="visually-hidden">Loading comments…</span>
+              </div>
+            </div>
+          } @else if(comments().length === 0) {
+            <p class="comments__empty">No comments yet. Be the first!</p>
+          } @else {
+            <ul class="comments__list">
+              @for(comment of comments(); track comment.id) {
+                <li class="comment">
+                  <div class="comment__avatar">
+                    <!-- First letter of email as avatar -->
+                    {{ comment.userEmail.charAt(0).toUpperCase() }}
+                  </div>
+                  <div class="comment__body">
+                    <div class="comment__header">
+                      <span class="comment__email">{{ comment.userEmail }}</span>
+                      <span class="comment__time">{{ comment.createdAt | date: 'dd MMM yyyy, HH:mm' }}</span>
+                    </div>
+                    <p class="comment__text">{{ comment.content }}</p>
+                  </div>
+                </li>
+              }
+            </ul>
+          }
+        </section>
+      </article>
+    }
+  </div>
+</div>

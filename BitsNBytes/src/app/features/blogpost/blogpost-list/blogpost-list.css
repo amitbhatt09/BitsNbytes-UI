@@ -1,0 +1,53 @@
+/* ─── Page layout ─── */
+.admin-list-page {
+  padding: 40px 0 80px;
+}
+.admin-list-page__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+}
+.admin-list-page__title {
+  font-size: 1.55rem;
+  font-weight: 700;
+  color: var(--clr-text-bright);
+  margin-bottom: 0;
+}
+
+/* spinner & error */
+.admin-list-page__spinner {
+  display: flex;
+  justify-content: center;
+  padding: 60px 0;
+}
+.admin-list-page__error {
+  color: var(--clr-danger);
+  font-size: .85rem;
+  padding: 20px 0;
+}
+
+/* ─── Visible badge ─── */
+.admin-list-page__badge {
+  display: inline-block;
+  font-size: .7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: .5px;
+  padding: 3px 10px;
+  border-radius: 999px;
+}
+.admin-list-page__badge--yes {
+  background: rgba(34, 197, 94, .12);
+  color: #4ade80;
+}
+.admin-list-page__badge--no {
+  background: rgba(239, 68, 68, .12);
+  color: var(--clr-danger-hover);
+}
+
+/* ─── Table scroll wrapper (mobile safety) ─── */
+.admin-list-page__table-wrap {
+  overflow-x: auto;
+  border-radius: var(--radius);
+}

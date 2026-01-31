@@ -1,0 +1,210 @@
+/* ─── Page wrapper ─── */
+.blog-detail {
+  padding: 48px 0 80px;
+  display: flex;
+  justify-content: center;
+}
+.blog-detail__spinner {
+  display: flex;
+  justify-content: center;
+  padding: 80px 0;
+}
+
+/* ─── Article container — wider reading lane ─── */
+.blog-detail__article {
+  width: 100%;
+  max-width: 860px;
+}
+
+/* ─── Hero image ─── */
+.blog-detail__hero-img {
+  width: 100%;
+  border-radius: var(--radius);
+  margin-bottom: 32px;
+  max-height: 420px;
+  object-fit: cover;
+}
+
+/* ─── Title ─── */
+.blog-detail__title {
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: var(--clr-text-bright);
+  line-height: 1.3;
+  margin-bottom: 16px;
+}
+
+/* ─── Meta row ─── */
+.blog-detail__meta {
+  display: flex;
+  gap: 24px;
+  color: var(--clr-text-muted);
+  font-size: .82rem;
+  margin-bottom: 18px;
+}
+.blog-detail__author,
+.blog-detail__date {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--clr-text-muted);
+}
+
+/* ─── Category tags ─── */
+.blog-detail__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 32px;
+}
+
+/* ═══════════════════════════════════════════
+   COMMENTS SECTION
+   ═══════════════════════════════════════════ */
+.comments {
+  margin-top: 56px;
+  padding-top: 40px;
+  border-top: 1px solid var(--clr-border);
+}
+
+/* heading + badge count */
+.comments__heading {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--clr-text-bright);
+  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.comments__count {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: .72rem;
+  font-weight: 600;
+  background: var(--clr-surface-alt);
+  color: var(--clr-text-muted);
+  border-radius: 999px;
+  padding: 3px 10px;
+}
+
+/* ─── Authenticated: comment form ─── */
+.comments__form {
+  margin-bottom: 36px;
+}
+.comments__textarea {
+  width: 100%;
+  min-height: 100px;
+  resize: vertical;
+}
+.comments__form-actions {
+  margin-top: 10px;
+  display: flex;
+  justify-content: flex-end;
+}
+.comments__submit-btn {
+  padding: 9px 24px;
+}
+
+/* ─── Guest: sign-up prompt ─── */
+.comments__guest-prompt {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: var(--clr-surface-alt);
+  border: 1px solid var(--clr-border);
+  border-radius: var(--radius);
+  padding: 18px 22px;
+  margin-bottom: 36px;
+}
+.comments__guest-icon {
+  color: var(--clr-text-muted);
+  flex-shrink: 0;
+}
+.comments__guest-text {
+  margin: 0;
+  font-size: .86rem;
+  color: var(--clr-text-muted);
+  line-height: 1.5;
+}
+.comments__guest-text a {
+  color: var(--clr-primary);
+  font-weight: 600;
+}
+.comments__guest-text a:hover {
+  color: var(--clr-primary-hover);
+}
+
+/* ─── Loading / empty state ─── */
+.comments__spinner {
+  display: flex;
+  justify-content: center;
+  padding: 32px 0;
+}
+.comments__empty {
+  font-size: .84rem;
+  color: var(--clr-text-muted);
+  text-align: center;
+  padding: 24px 0;
+  margin: 0;
+}
+
+/* ─── Comment list ─── */
+.comments__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* ─── Individual comment ─── */
+.comment {
+  display: flex;
+  gap: 14px;
+}
+
+/* letter avatar */
+.comment__avatar {
+  flex-shrink: 0;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--clr-primary), var(--clr-accent));
+  color: #fff;
+  font-weight: 700;
+  font-size: .9rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Space Grotesk', sans-serif;
+}
+
+/* body */
+.comment__body {
+  flex: 1;
+  min-width: 0;
+}
+.comment__header {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  margin-bottom: 5px;
+  flex-wrap: wrap;
+}
+.comment__email {
+  font-size: .84rem;
+  font-weight: 600;
+  color: var(--clr-text-bright);
+}
+.comment__time {
+  font-size: .72rem;
+  color: var(--clr-text-muted);
+}
+.comment__text {
+  font-size: .86rem;
+  color: var(--clr-text);
+  line-height: 1.6;
+  margin: 0;
+  word-break: break-word;
+}
