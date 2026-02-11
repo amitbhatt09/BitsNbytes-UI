@@ -7,7 +7,7 @@
   position: sticky;
   top: 0;
   z-index: 100;
-  background: rgba(22, 32, 48, .80);
+  background: var(--clr-surface);
   backdrop-filter: blur(18px) saturate(1.4);
   -webkit-backdrop-filter: blur(18px) saturate(1.4);
   border-bottom: 1px solid var(--clr-border);
@@ -16,13 +16,14 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  transition: background-color 0.3s ease;
 }
 
 /* ─── Brand ─── */
 .navbar__brand {
   font-family: 'Playfair Display', serif;
   font-weight: 800;
-  font-size: 1.55rem;
+  font-size: 1.65rem;
   letter-spacing: -.5px;
   text-decoration: none;
   background: linear-gradient(135deg, var(--clr-primary), var(--clr-accent));
@@ -36,39 +37,48 @@
   filter: brightness(1.25);
 }
 
-/* ─── Center links (admin dropdown only) ─── */
-.navbar__links {
+/* ─── Right-side actions container ─── */
+.navbar__actions {
   display: flex;
   align-items: center;
-  gap: 4px;
-  list-style: none;
-  margin: 0;
-  padding: 0;
+  gap: 8px;
   flex: 1;
-  justify-content: center;
+  justify-content: flex-end;
 }
 
-.navbar__links a {
-  display: flex;
+/* ─── Navigation links (Home, Admin) ─── */
+.navbar__nav-link {
+  display: inline-flex;
   align-items: center;
   gap: 6px;
   color: var(--clr-text-muted);
-  text-decoration: none;
-  font-size: .88rem;
+  font-size: .94rem;
   font-weight: 500;
-  padding: 7px 14px;
+  padding: 8px 16px;
   border-radius: var(--radius-sm);
+  text-decoration: none;
   transition: color var(--transition), background var(--transition);
   position: relative;
-  text-transform: none;
-  letter-spacing: normal;
-  border: none;
-  box-shadow: none;
-  background: transparent;
 }
-.navbar__links a:hover {
+.navbar__nav-link:hover {
   color: var(--clr-text-bright);
   background: var(--clr-surface-alt);
+}
+
+/* Active link (Home with routerLinkActive) */
+.navbar__nav-link.active {
+  color: var(--clr-text-bright);
+  background: var(--clr-surface-alt);
+}
+.navbar__nav-link.active::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 16px;
+  right: 16px;
+  height: 2px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, var(--clr-primary), var(--clr-accent));
 }
 
 /* ─── Dropdown ─── */
@@ -81,8 +91,7 @@
 .dropdown__menu {
   position: absolute;
   top: calc(100% + 10px);
-  left: 50%;
-  transform: translateX(-50%) translateY(-8px);
+  left: 0;
   min-width: 180px;
   background: var(--clr-surface);
   border: 1px solid var(--clr-border);
@@ -91,65 +100,71 @@
   padding: 6px;
   opacity: 0;
   visibility: hidden;
+  transform: translateY(-8px);
   transition: opacity var(--transition), transform var(--transition), visibility var(--transition);
 }
 .dropdown:hover .dropdown__menu {
   opacity: 1;
   visibility: visible;
-  transform: translateX(-50%) translateY(0);
+  transform: translateY(0);
 }
 .dropdown__menu a {
   display: block;
-  padding: 9px 14px;
+  padding: 10px 16px;
   border-radius: var(--radius-sm);
-  font-size: .84rem;
+  font-size: .88rem;
   background: transparent;
+  color: var(--clr-text-muted);
+  text-decoration: none;
+  transition: background var(--transition), color var(--transition);
 }
 .dropdown__menu a:hover {
   background: var(--clr-surface-alt);
   color: var(--clr-text-bright);
 }
 
-/* ─── Right-side actions ─── */
-.navbar__actions {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  flex-shrink: 0;
-}
-
-/* Home link (shows only when off the home page) */
-.navbar__home-link {
+/* ─── Theme Toggle Button ─── */
+.theme-toggle {
   display: inline-flex;
   align-items: center;
-  gap: 5px;
-  color: var(--clr-text-muted);
-  font-size: .84rem;
-  font-weight: 500;
-  padding: 6px 10px;
-  border-radius: var(--radius-sm);
-  text-decoration: none;
-  transition: color var(--transition), background var(--transition);
-}
-.navbar__home-link:hover {
-  color: var(--clr-text-bright);
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
   background: var(--clr-surface-alt);
+  border: 1px solid var(--clr-border);
+  color: var(--clr-text-muted);
+  cursor: pointer;
+  transition: all var(--transition);
+}
+.theme-toggle:hover {
+  background: var(--clr-primary);
+  border-color: var(--clr-primary);
+  color: #fff;
+  transform: rotate(15deg);
 }
 
+/* ─── Spacer (pushes auth buttons to far right) ─── */
+.navbar__spacer {
+  flex: 1;
+}
+
+/* ─── User email ─── */
 .navbar__email {
-  font-size: .82rem;
+  font-size: .88rem;
   color: var(--clr-text-muted);
   letter-spacing: .3px;
+  margin-left: 12px;
 }
 
 /* ─── Navbar Buttons ─── */
 .btn {
   font-family: inherit;
-  font-size: .78rem;
+  font-size: .82rem;
   font-weight: 600;
   letter-spacing: .4px;
   text-transform: uppercase;
-  padding: 8px 20px;
+  padding: 9px 22px;
   border-radius: 999px;
   border: none;
   cursor: pointer;

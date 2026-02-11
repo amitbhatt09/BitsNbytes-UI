@@ -8,6 +8,13 @@
       <p class="login-card__sub">Sign in to your account</p>
 
       <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <!-- API-level error banner (shown when login fails) -->
+        @if(loginError()) {
+          <div class="login-card__error">
+            {{ loginError() }}
+          </div>
+        }
+
         <div class="mb-3">
           <label for="email" class="form-label">Email address</label>
           <input type="email" id="email" class="form-control" formControlName="email" placeholder="you@example.com" />

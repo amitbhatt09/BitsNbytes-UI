@@ -1,6 +1,7 @@
 import { Component, inject } from '@angular/core';
-import { ActivatedRoute, Router, RouterLink } from "@angular/router";
+import { Router, RouterLink } from "@angular/router";
 import { AuthService } from '../../../features/auth/services/auth-service';
+import { ThemeService } from '../../services/theme.service';
 
 @Component({
   selector: 'app-navbar',
@@ -11,6 +12,7 @@ import { AuthService } from '../../../features/auth/services/auth-service';
 export class Navbar {
   authService = inject(AuthService);
   router = inject(Router);
+  themeService = inject(ThemeService);
 
   // true when the current route is exactly the home page
   get isHome(): boolean {
@@ -19,5 +21,9 @@ export class Navbar {
 
   onLogout() {
     this.authService.onLogout();
+  }
+
+  toggleTheme() {
+    this.themeService.toggleTheme();
   }
 }

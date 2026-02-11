@@ -51,3 +51,23 @@
   overflow-x: auto;
   border-radius: var(--radius);
 }
+
+/* ═══════════════════════════════════════════
+   FIX TABLE VISIBILITY IN LIGHT/DARK MODES
+   ═══════════════════════════════════════════ */
+.table > tbody > tr > td {
+  color: var(--clr-text-bright) !important;
+  font-weight: 500;
+}
+
+.table > thead > tr > th {
+  color: var(--clr-text-bright) !important;
+  font-weight: 700;
+}
+
+/* Make ID column more subtle */
+.table > tbody > tr > td:first-child {
+  color: var(--clr-text-muted) !important;
+  font-size: .8rem;
+  font-family: 'Courier New', monospace;
+}

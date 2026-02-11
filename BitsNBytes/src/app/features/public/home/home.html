@@ -11,24 +11,67 @@
       </div>
     </div>
   } @else {
-    <div class="blog-grid">
-      @for(blogPost of blogPostsResponse(); track blogPost.id){
-        <article class="blog-card">
-          <div class="blog-card__img-wrap">
-            <img [src]="blogPost.featuredImageUrl" class="blog-card__img" alt="{{ blogPost.title }}">
+    @if(paginatedPosts().length === 0) {
+      <p class="home-empty">No blog posts available yet.</p>
+    } @else {
+      <div class="blog-grid">
+        @for(blogPost of paginatedPosts(); track blogPost.id){
+          <article class="blog-card">
+            <div class="blog-card__img-wrap">
+              <img [src]="blogPost.featuredImageUrl" class="blog-card__img" alt="{{ blogPost.title }}">
+            </div>
+            <div class="blog-card__body">
+              <h2 class="blog-card__title">{{ blogPost.title }}</h2>
+              <p class="blog-card__desc">{{ blogPost.shortDescription }}</p>
+              <a [routerLink]="['/blog', blogPost.urlHandle]" class="blog-card__link">
+                Read More
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                  <path d="M3 7h8M8 4l3 3-3 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </a>
+            </div>
+          </article>
+        }
+      </div>
+
+      <!-- Pagination Controls -->
+      @if(totalPages() > 1) {
+        <div class="pagination">
+          <button 
+            class="pagination__btn pagination__btn--prev" 
+            (click)="previousPage()"
+            [disabled]="currentPage() === 1"
+          >
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+              <path d="M10 12L6 8l4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            Previous
+          </button>
+
+          <div class="pagination__numbers">
+            @for(page of pageNumbers(); track page) {
+              <button 
+                class="pagination__number"
+                [class.pagination__number--active]="page === currentPage()"
+                (click)="goToPage(page)"
+              >
+                {{ page }}
+              </button>
+            }
           </div>
-          <div class="blog-card__body">
-            <h2 class="blog-card__title">{{ blogPost.title }}</h2>
-            <p class="blog-card__desc">{{ blogPost.shortDescription }}</p>
-            <a [routerLink]="['/blog', blogPost.urlHandle]" class="blog-card__link">
-              Read More
-              <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-                <path d="M3 7h8M8 4l3 3-3 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </a>
-          </div>
-        </article>
+
+          <button 
+            class="pagination__btn pagination__btn--next" 
+            (click)="nextPage()"
+            [disabled]="currentPage() === totalPages()"
+          >
+            Next
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+              <path d="M6 12l4-4-4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+        </div>
       }
-    </div>
+    }
   }
 </div>

@@ -1,8 +1,8 @@
 /* ─── Google Fonts ─── */
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap');
 
-/* ─── Design Tokens ─── */
-:root {
+/* ─── DARK THEME (Default) ─── */
+:root, [data-theme="dark"] {
   --clr-bg:            #0f1520;
   --clr-surface:       #162030;
   --clr-surface-alt:   #1e2d42;
@@ -25,6 +25,26 @@
   --transition:        .28s cubic-bezier(.4,0,.2,1);
 }
 
+/* ─── LIGHT THEME ─── */
+[data-theme="light"] {
+  --clr-bg:            #f8f9fa;
+  --clr-surface:       #ffffff;
+  --clr-surface-alt:   #f1f3f5;
+  --clr-border:        rgba(0,0,0,.1);
+
+  --clr-primary:       #3b82f6;
+  --clr-primary-hover: #2563eb;
+  --clr-accent:        #06b6d4;
+  --clr-accent-warm:   #f59e0b;
+
+  --clr-text:          #1f2937;
+  --clr-text-muted:    #6b7280;
+  --clr-text-bright:   #111827;
+
+  --clr-danger:        #dc2626;
+  --clr-danger-hover:  #b91c1c;
+}
+
 /* ─── Reset & Base ─── */
 *, *::before, *::after {
   box-sizing: border-box;
@@ -36,6 +56,7 @@ body {
   color: var(--clr-text);
   min-height: 100vh;
   -webkit-font-smoothing: antialiased;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 h1, h2, h3, h4, h5 {
