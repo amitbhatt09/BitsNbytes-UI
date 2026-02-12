@@ -1,4 +1,5 @@
 export const environment = {
-     apiBaseUrl : 'https://prod.BitNBytes.com',
-     environmentName : 'production'
+  production: true,
+  apiBaseUrl: 'https://orange-water-06cf16100.6.azurestaticapps.net',
+  environmentName: 'production'
 };
