@@ -19,10 +19,12 @@ export class BlogPostService {
 
   getAllBlogPosts():HttpResourceRef<BlogPost[] | undefined>{
     return httpResource<BlogPost[]>(()=>`${this.apiBaseUrl}/api/blogposts`);
+    withCredentials: true
   }
 
   getBlogPostById(id:InputSignal<string | undefined>):HttpResourceRef<BlogPost | undefined>{
     return httpResource<BlogPost>(()=>`${this.apiBaseUrl}/api/blogposts/${id()}`);
+    withCredentials: true
   }
 
   editBlogPost(id:string, body:UpdateBlogPostRequest):Observable<BlogPost>{
@@ -38,6 +40,9 @@ export class BlogPostService {
   }
 
   getBlogPostByUrlHandle(urlHandle:InputSignal<string | undefined>):HttpResourceRef<BlogPost | undefined>{
-    return httpResource<BlogPost>(()=>`${this.apiBaseUrl}/api/blogposts/${urlHandle()}`);
-  }
+    return httpResource<BlogPost>(()=>({
+      url: `${this.apiBaseUrl}/api/blogposts/${urlHandle()}`,
+      withCredentials: true  // ✅ Add this
+    }));
+}
 }

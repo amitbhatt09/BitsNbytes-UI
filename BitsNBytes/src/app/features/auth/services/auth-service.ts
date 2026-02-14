@@ -13,15 +13,15 @@ export class AuthService {
   user = signal<User | null>(null);
   router = inject(Router);
 
-  loadUser():HttpResourceRef<User | undefined>{
+loadUser():HttpResourceRef<User | undefined>{
     return httpResource(()=>{
       const request : HttpResourceRequest = {
         url:`${environment.apiBaseUrl}/api/auth/me`,
-        withCredentials:true
+        withCredentials:true  // ✅ Already correct
       }
       return request;
     })
-  }
+}
   login(email: string, password: string):Observable<LoginResponse> {
     return this.http.post<LoginResponse>(`${environment.apiBaseUrl}/api/auth/login`, { email:email, password:password },{
       withCredentials: true

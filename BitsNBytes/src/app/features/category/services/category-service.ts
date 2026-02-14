@@ -31,13 +31,18 @@ export class CategoryService {
   } 
 
   getAllCategories() {
-    return httpResource<Category[]>(()=>`${this.apiBaseUrl}/api/Categories`);
-    
-  }
+    return httpResource<Category[]>(()=>({
+      url: `${this.apiBaseUrl}/api/Categories`,
+      withCredentials: true  // ✅ Add this
+    }));
+}
 
   getCategoryById(id:InputSignal<string | undefined>) {
-    return httpResource<Category>(()=>`${this.apiBaseUrl}/api/Categories/${id()}`);
-  }
+    return httpResource<Category>(()=>({
+      url: `${this.apiBaseUrl}/api/Categories/${id()}`,
+      withCredentials: true  // ✅ Add this
+    }));
+}
 
   updateCategory(id:string, updateCategoryRequestDto:UpdateCategoryRequest) {
     this.updateCategoryStatus.set('loading');

@@ -21,14 +21,15 @@ export class ImageSelectorService {
     this.showImageSelector.set(false);
   }
 
-  uploadImage(file: File, name: string, title: string):Observable<BlogImage>{
-
+uploadImage(file: File, name: string, title: string):Observable<BlogImage>{
     const formData = new FormData();
     formData.append('file', file);
     formData.append('fileName', name);
     formData.append('title', title);
 
-    return this.http.post<BlogImage>(`${environment.apiBaseUrl}/api/images`, formData);
+    return this.http.post<BlogImage>(`${environment.apiBaseUrl}/api/images`, formData, {
+      withCredentials: true  // ✅ Add this
+    });
 }
 
 selectImage(imageUrl:string){
@@ -40,7 +41,10 @@ selectImage(imageUrl:string){
 getAllImages(id:WritableSignal<string | undefined>):HttpResourceRef<BlogImage[]|undefined>{
   return httpResource<BlogImage[]>(() =>{
     id();
-    return `${environment.apiBaseUrl}/api/images`;
+    return {
+      url: `${environment.apiBaseUrl}/api/images`,
+      withCredentials: true  // ✅ Add this
+    };
   })
 }
 }
