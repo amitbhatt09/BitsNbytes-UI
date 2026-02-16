@@ -17,7 +17,7 @@ loadUser():HttpResourceRef<User | undefined>{
     return httpResource(()=>{
       const request : HttpResourceRequest = {
         url:`${environment.apiBaseUrl}/api/auth/me`,
-        withCredentials:true  // ✅ Already correct
+        withCredentials:true  // ✅Already correct
       }
       return request;
     })
